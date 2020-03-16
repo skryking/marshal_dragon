@@ -1,0 +1,1 @@
+{"type"=>Stuff, "value"=>[{"type"=>Array, "name"=>"@array1", "value"=>[{"type"=>Array, "value"=>[]}]}]}
