@@ -8,10 +8,12 @@ module Marshal
 
     if Marshal::TYPES.include?(target.class)
       hash["value"] = target
+      
     else
       array1 = Array.new
       hash["value"] = array1
 
+      
       target.instance_variables.each do |var|
         instance_hash = Hash.new
         variable = target.instance_variable_get(var)
@@ -24,7 +26,7 @@ module Marshal
           temp = Hash.new
 
           variable.map do |k, v|
-            temp[k] = Marshal.dump(v)
+            temp[k] = Marshal.dump_instance_variables(v)
           end
 
           instance_hash["value"] = temp
@@ -32,7 +34,7 @@ module Marshal
           temp = Array.new
 
           variable.each do |item|
-            temp << Marshal.dump(item)
+            temp << Marshal.dump_instance_variables(item)
           end
 
           instance_hash["value"] = temp
