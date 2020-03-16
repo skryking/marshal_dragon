@@ -2,8 +2,6 @@ require "app/marshal.rb"
 require "app/stuff.rb"
 
 def tick args
-  args.outputs.labels << [ 580, 500, 'Hello World!' ]
-  args.outputs.labels << [ 475, 150, '(Consider reading README.txt now.)' ]
   $gtk.args.state.stuff ||= Stuff.new
 
 end
@@ -17,5 +15,6 @@ def save_file
 end
 
 def load_file
-  $gtk.args.state.second_stuff = Marshal.load('savefile.txt')
+  $gtk.args.state.second_stuff = Marshal.load(File.read('savefile.txt'))
 end
+
