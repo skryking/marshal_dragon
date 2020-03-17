@@ -49,7 +49,6 @@ module Marshal
     else
       object_hash = target
     end
-    puts "obj_hash: #{object_hash}"
     if obj == nil
       obj = object_hash["type"].new
       obj = Marshal.load(obj, object_hash["value"])
@@ -69,7 +68,6 @@ module Marshal
       else
         obj = Array.new
         object_hash["value"].each do |item|
-          puts "item: #{item}"
           if Marshal::TYPES.include?(item.class)
             obj << item
           else
@@ -92,7 +90,12 @@ module Marshal
         end
         obj = newobj
       end
-
+    elsif object_hash.class == Hash
+      newobj = object_hash["type"].new
+      obj = Marshal.load(newobj, object_hash["value"])
+    else
+      newobj = object_hash["type"].new
+      obj.instance_variable_set(object_hash["name"], Marshal.load(newobj, object_hash["value"]))
     end
 
 
