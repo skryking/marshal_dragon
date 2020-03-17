@@ -81,6 +81,18 @@ module Marshal
           end
         end
       end
+    elsif object_hash["type"] == Hash
+      if object_hash.has_key?("name")
+        newobj = Hash.new
+        obj.instance_variable_set(object_hash["name"], Marshal.load(newobj, object_hash["value"]))
+      else
+        newobj = Hash.new
+        object_hash["value"].map do |k, v|
+          newobj[k] = v
+        end
+        obj = newobj
+      end
+
     end
 
 
